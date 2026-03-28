@@ -916,7 +916,7 @@ bool VL53L1XComponent::get_range_status() {
 }
 
 bool VL53L1XComponent::vl53l1x_write_bytes(uint16_t a_register, const uint8_t *data, uint8_t len) {
-    return this->write_register16(a_register, data, len, true) == i2c::ERROR_OK;
+    return this->write_register16(a_register, data, len) == i2c::ERROR_OK;
 }
 
 bool VL53L1XComponent::vl53l1x_write_bytes_16(uint8_t a_register, const uint16_t *data, uint8_t len) {
@@ -924,7 +924,7 @@ bool VL53L1XComponent::vl53l1x_write_bytes_16(uint8_t a_register, const uint16_t
   std::unique_ptr<uint16_t[]> temp{new uint16_t[len]};
   for (size_t i = 0; i < len; i++)
     temp[i] = i2c::htoi2cs(data[i]);
-  return (this->write_register16(a_register, reinterpret_cast<const uint8_t *>(temp.get()), len * 2, true) == i2c::ERROR_OK);
+  return (this->write_register16(a_register, reinterpret_cast<const uint8_t *>(temp.get()), len * 2) == i2c::ERROR_OK);
 }
 
 bool VL53L1XComponent::vl53l1x_write_byte(uint16_t a_register, uint8_t data) {
